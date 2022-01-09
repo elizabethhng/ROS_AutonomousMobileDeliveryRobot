@@ -1,0 +1,16 @@
+Folder:/home/student/catkin_ws/src/pyserial 
+Backup files:/home/student/catkin_ws/src/pyserial/backup_complete_codes
+
+!!!PLEASE DO NOT EDIT BACKUP FILES. ONLY COPY AND PASTE INTO ANOTHER FOLDER TOO EDIT!!!        
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+CONFIGURING THE 2 XBEES
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+1. Plug both xbees into a computer with XCTU (note:use the new version as old version firmware outdated)
+2. Select and add the devices on XCTU
+3. Open the configuration settings for the 1st xbee
+4. Enter the ADDRESS ID of the 2nd xbee and enter the 1st xbee's MAC address under destination.
+5. Select Baud Rate (scroll down) of 115200
+6. Repeat steps 3-5 for the 2nd Xbee
+7. Open xbee console (top left) and test communication between both devices
+

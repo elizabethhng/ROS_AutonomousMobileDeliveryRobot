@@ -1,0 +1,8 @@
+<launch>
+	<node> pkg="turtlesim" type="turtlesim_node" name="turtlesim_node">
+		<param name="turtle1/cmd_vel" value="/cmd_vel">
+	<node/>
+
+	<node name="pyserial" pkg="pyserial" type="twist_receive_publish_rosnode.py" output="screeen"/>
+
+</launch>

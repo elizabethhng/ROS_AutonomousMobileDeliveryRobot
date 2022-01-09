@@ -1,0 +1,53 @@
+In this folder are the files required in order to run install the CE30-D drivers and packages. The CE30-C and CE30-D require different packages. 
+
+
+1. Configuring ethernet connection. 
+Configure the ipv4 address as 192.168.1.81 on the laptop. To confirm that the laser is connected, ping 192.168.1.80
+
+
+2. Installing CE30 drivers
+This driver is required to run the ros packages shown subsequently, but has been taken off the internet. Hence, the ce30_driver provided by benewake can also be found in the "CE30-D info pack 5.22" zip fles under linux. 
+
+To install the driver, extract "ce30_driver-master" (eg.~/Downloads/ce30_driver-master$ ) , then use the following commands.
+
+Within the ce30_driver-master directory, run
+
+	$ cmake . 
+
+Where "." is the path to source. Afterwhich, run
+
+	$ make
+
+and then 
+
+	$ sudo make install
+
+
+3. Install the ROS packages
+
+The ros packages required for the ce30-D can be found in the following link (or in the dropbox) 
+https://github.com/martinappo/ce30-d_driver_ros it will produce pointcloud data. Install and run the launch file.
+
+Additional notes:
+The CE30-D ros driver publishes topics as sensor_msgs/PointCloud instead of sensor_msgs/PointCloud2, which is required to convert to sensor_msgs/LaserScan used for mapping purposes. To understand more about the differences in these two message types, refer to the following link (http://wiki.ros.org/pcl/Overview) .
+
+Hence, the current structure is as such. point_cloud_converter is used to convert sensor_msgs/pointcloud to sensor_msgs/pointcloud2 (http://wiki.ros.org/point_cloud_converter), and pointcloud_to_laserscan is used to convert sensor_msgs/pointcloud2 to sensor_msgs/LaserScan (http://wiki.ros.org/pointcloud_to_laserscan)
+ 
+CE30_ros_driver (sensor_msgs/PointCloud) --> point_cloud_converter (sensor_msgs/PointCloud2) --> pointcloud_to_laserscan (sensor_msgs/LaserScan).
+
+The nodes have been put into the ce30_ros_driver static_demo.launch launch file. 
+
+Hence, to run the benewake CE30-D, use the following command.
+
+roslaunch ce30_driver_ros static_demo.launch
+
+Laser data will then be published in the topic /scan, ready to be used for mapping. 
+
+
+Reference links:
+https://github.com/martinappo/ce30-d_driver_ros
+http://wiki.ros.org/pcl/Overview
+http://wiki.ros.org/point_cloud_converter
+http://wiki.ros.org/pointcloud_to_laserscan
+
+

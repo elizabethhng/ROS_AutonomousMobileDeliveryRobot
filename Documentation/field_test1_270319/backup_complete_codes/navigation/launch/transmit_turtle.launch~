@@ -1,0 +1,12 @@
+<launch> 
+  <node pkg="turtlesim" type="turtlesim_node" name="turtlesim_node">
+    <remap from="turtle1/cmd_vel" to="/cmd_vel" />
+  </node>
+
+	<include file="$(find teleop_twist_joy)/launch/teleop.launch" />
+
+	<node name="pyserial" pkg="pyserial" type="transmit_subscribe_rosnode" output="screen"/>
+	
+</launch>
+
+

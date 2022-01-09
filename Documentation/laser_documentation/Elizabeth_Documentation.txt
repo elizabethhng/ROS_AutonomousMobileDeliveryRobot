@@ -1,0 +1,28 @@
+Tested laser model:
+CE30-3 Solid State Array LiDAR
+https://www.robotshop.com/en/solid-state-tof-infrared-lidar-ce30-c.html
+https://www.robotshop.com/media/files/pdf2/de-lidar_ce30-c_datasheet-v010-en.pdf
+
+
+1. Research on the model
+-Field of vision: 132*9 degrees (horizontal*vertical)
+-Range: 4m
+-3D laser
+
+2. Document installation
+		Download laser driver zip file from
+		https://github.com/CE30C/SDK-for-ROS/blob/master/CE30-C_ROS_kinetic_v2.0.tar.gz
+		Extract to catkin_ws/src
+		catkin_make
+		
+		Download pointcloud_to_laser package 
+		http://wiki.ros.org/pointcloud_to_laserscan
+		catkin_make
+		
+		ensure parameters (cloud_in) are mappped
+		
+3. Mount it on the robot of sorts and check how much is covered
+
+4. Ros cloud point to /scan (single layer laser data)
+
+5. Decide portions after concluding range (	lasercolour.py )

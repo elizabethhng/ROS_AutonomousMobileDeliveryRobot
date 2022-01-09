@@ -1,0 +1,31 @@
+<launch>
+  	<!-- run p2os driver -->
+	<include file="$(find p2os_launch)/launch/p2os_driver.launch" />
+	    <param name="port" type="string" value="/dev/ttyUSB0"/>
+
+	<!-- run vmu -->
+	<include file="$(find vmu931_imu)/launch/vmu931_imu.launch" />
+	    <param name="port" type="string" value="/dev/ttyACM1"/>
+
+	<!-- run p2os controller -->
+	<include file="$(find p2os_launch)/launch/teleop_joy.launch" />
+
+	
+	
+	<!-- run hokuyo laser node 
+	<include file="$(find hokuyo_node)/hokuyo_test.launch" />
+	    <param name="port" type="string" value="/dev/ttyACM0"/>
+-->
+	<!-- run tf of laser_link to base_link
+	<node pkg="robot_setup_tf" type="tf_broadcaster" name="tf_broadcaster"/>
+-->
+
+	<!-- GMAPPING Build map 
+	<include file="$(find gmapping)/launch/slam_gmapping_pr2.launch" />
+-->
+	<!-- run rviz 
+	<node pkg="rviz" type="rviz" name="rviz"/>
+-->
+
+</launch>
+

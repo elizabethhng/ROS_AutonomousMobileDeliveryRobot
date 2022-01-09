@@ -1,0 +1,32 @@
+23/07/19
+Field test: Test the range of the xbees using turtle sim. Com 1 publishes joystick commands, com 2 receives and moves turtle.
+
+Main things we tested when issues arised:
+-Range/distance
+-Antenna direction/line of sight
+-XBEE/Antenna connection or disconnection 
+-Analog/discrete data transmission
+
+How we troubleshoot to test:
+1. Test near range (all OK)
+2. Test range by publishing while walking till reception stops. (all ok:250m)
+3. Test code by facing antennas away from each other
+4. Use XCTU to check if xbees could communicate
+
+Field test 1 (Morning)
+
+Conclusion: Only works speriodically
+Condluded issue: Whenever there is a disconnection (antenna?), code does not resume.
+
+Field test 1 (Afternoon)
+
+Location: SP Arena Lvl 4 empty hall
+
+
+
+SPArena-
+Conclusion: Works well for analog and discrete
+
+
+Field-
+Conclusion: Works well across field and drizzle

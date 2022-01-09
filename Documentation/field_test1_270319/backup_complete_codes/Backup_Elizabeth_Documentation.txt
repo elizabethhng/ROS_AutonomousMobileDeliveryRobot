@@ -1,0 +1,114 @@
+Folder:/home/student/catkin_ws/src/pyserial 
+Backup files:/home/student/catkin_ws/src/pyserial/backup_complete_codes
+
+!!!PLEASE DO NOT EDIT BACKUP FILES. ONLY COPY AND PASTE INTO ANOTHER FOLDER TOO EDIT!!!         
+
+	 ______________________________________________________________________
+	|documentation format  					    					      |
+    |--------------------                                                 |
+	|eg. ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   |
+	|     SEGMENT TITLE 											      |
+    |    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   |
+	|	1.Title														      |
+	|		//directory of the file              						  |
+	|    		//command to run on the terminal             	          |
+	|    //explanation of what the code does or how it was developed      |
+	|_____________________________________________________________________|
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+CONFIGURING THE 2 XBEES
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+1. Plug both xbees into a computer with XCTU (note:use the new version as old version firmware outdated)
+2. Select and add the devices on XCTU
+3. Open the configuration settings for the 1st xbee
+4. Enter the ADDRESS ID of the 2nd xbee and enter the 1st xbee's MAC address under destination.
+5. Select Baud Rate (scroll down) of 115200
+6. Repeat steps 3-5 for the 2nd Xbee
+7. Open xbee console (top left) and test communication between both devices
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+DEVELOPING A PYTHON CODE FOR SERIAL COMMUNICATION BETWEEN 2 XBEES THROUGH A ROS NODE.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+A. Threaded transmitting and receiving
+  /home/student/catkin_ws/src/pyserial/testout2.py
+
+		cd ~/catkin_ws/src/pyserial/
+		python testout2.py
+
+#### this file is used to test both transmitting and receiving. it transmits A to Z to the console and prints data from console only upon receiving.
+    ___________________________________________________________________________________________________
+
+B. Publishing received data to ros node wihhout thread
+  /home/student/catkin_ws/src/pyserial/publisher.py
+
+		cd ~/catkin_ws/src/pyserial/
+		python publisher.py
+
+#### this file inlcudes initialising a node ('talker') and publishing to a topic ('chatter'). The data published comes from the serial input(console). 
+    ____________________________________________________________________________________________________
+
+C.COMBINING above into threaded ros node publisher
+  /home/student/catkin_ws/src/pyserial/simultaneous_rosnode
+	- Publish data upon receiving input from console to node/topic
+	- Subscribe from an existing node/topic and transmit to console
+
+####this node allows serial communication between rosnodes on 2 different computers through the serial port.
+
+
+##important note of reference; 
+transmit & receive refers to the serial port connections
+Subscribe & Publish refers to the ros nodes. Data from
+Receiver-->Publisher
+Subscriber-->Transmitter
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+DEVELOPING A PYTHON CODE TO SEND CMD_VEL (One Way Transmission)
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+A. COMPUTER 1
+#### Using a connected joystick, Computer 1 (com1) will be used to transmit /cmd_vel data to Computer 2(com2)
+
+/home/student/catkin_ws/src/pyserial/transmit_subscribe_rosnode.py
+	1.Run teleop_joy launch file
+		roslaunch teleop_twist_joy teleop.launch
+	2.Run Python file
+		cd ~/catkin_ws/src/pyserial/
+		python transmit_subscribe_rosnode.py
+		####This file does the following
+			-Runs transmission code as a thread
+			-Subscribes to /cmd_vel rostopic
+			-Extracts linear.x and angular.z values to +/-2.dp
+			-'+X.XX,-X.XX' => 11bytes, writes to serial port.
+
+B.COMPUTER 2
+ 	1. Ensure data can be received. 
+ 	 /home/student/catkin_ws/src/pyserial/twist_receive_publish_rosnode.py
+		
+		cd ~/catkin_ws/src/pyserial/
+		python twist_receive_publish_rosnode.py
+	
+!problems faced: incoming bytes were overflowing--fixed by slowing down the rate com1 was transmitting by adding a sleep(0.1) after writing to port
+
+	2. Add function to split the 11 byte data and extract (x,z)
+	3. Convert to float and create data in Twist format
+	4. Publish Twist message to topic on created rosnode
+
+C.Testing
+
+	1. Set up com1 and com2 as above
+	2. Run turtlesim_node and add remapping turtle1/cmd_vel to /cmd_vel on both computers
+
+		rosrun turtlesim turtlesim_node turtle1/cmd_vel:=cmd_vel
+	3. Control turtlesim nodes on both computers using joystick
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+NEXT STEPS
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+1. Test if robot can be remote controlled using zigbees
+2. Use longer range zigbees to test for delay and drift over turtlesim
+
+

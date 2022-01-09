@@ -1,0 +1,18 @@
+<launch>
+  	<!-- run p2os driver -->
+	<include file="$(find p2os_launch)/launch/p2os_driver.launch" />
+	
+	<!-- run p2os controller -->
+	<include file="$(find p2os_launch)/launch/teleop_joy.launch" />
+
+	<!-- run IMU device -->
+	<include file="$(find vmu931_imu)/launch/vmu931_imu.launch" />
+
+	<!-- run GPS device -->
+	<include file="$(find master)/launch/nmea_serial_driver.launch" />
+
+	<!-- run tf of laser_link to base_link 
+	<node pkg="robot_setup_tf" type="tf_broadcaster" name="tf_broadcaster"/>-->
+
+</launch>
+

@@ -1,0 +1,13 @@
+import base64
+
+#to serialise
+with open("oldmap.pgm", "rb") as imageFile:
+    str = base64.b64encode(imageFile.read())
+    print str
+
+# to deserialse 
+fh = open("deserialised.pgm", "wb")
+fh.write(str.decode('base64'))
+fh.close()
+
+#https://www.programcreek.com/2013/09/convert-image-to-string-in-python/

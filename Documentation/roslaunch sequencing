@@ -1,0 +1,17 @@
+#!/usr/bin
+
+res=`rosnode list | grep amcl | wc -l`
+
+while [ res ] do
+	# do nothing
+	sleep 1
+done
+
+# launch next thing
+
+
+
+
+/home/cmd1
+
+

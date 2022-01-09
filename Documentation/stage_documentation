@@ -1,0 +1,4 @@
+STAGE
+
+rosrun stage_ros stageros $ pioneer_walle.world /robot_0/cmd_vel:=/cmd_vel
+roslaunch teleop_twist_joy teleop.launch
