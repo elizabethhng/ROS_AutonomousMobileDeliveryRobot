@@ -1,0 +1,18 @@
+<launch>
+  
+  <arg name="waypoints_generated" default="$(find cirkit_waypoint_generator)/waypoints_generated.csv" />
+  <arg name="waypoints_output" default="$(find cirkit_waypoint_generator)/waypoints_output.csv" />
+  <arg name="start_waypoint" default="0"/>
+
+	<node pkg="cirkit_waypoint_generator" name="csv_reverse" type="csv_reverse.py" output="screen">
+		<param name="waypoint_generated_path" value="$(arg waypoints_generated)" />
+    <param name="waypoint_output_path" value="$(arg waypoints_output)"/>
+	</node>
+
+	<node name="cirkit_waypoint_navigator_node" pkg="cirkit_waypoint_navigator" type="cirkit_waypoint_navigator_node" output="screen">
+    <param name="waypointsfile" value="$(arg waypoints_output)" />
+    <param name="start_waypoint" value="$(arg start_waypoint)"/>
+	</node>
+
+  <node pkg="cirkit_waypoint_generator" name="cirkit_waypoint_server" type="cirkit_waypoint_server" args="--load $(arg waypoints_output)" output="screen"/>
+</launch>

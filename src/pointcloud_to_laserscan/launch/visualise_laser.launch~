@@ -1,0 +1,12 @@
+<launch>
+ 
+   
+   
+   <!-- static_transform_publisher 0 0 0 0 0 0 map ce30c_lidar-->
+
+   <include file="$(find ce30c_driver)/launch/benewake_ce30c.launch" />
+
+    <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan"/>
+    
+    
+</launch>

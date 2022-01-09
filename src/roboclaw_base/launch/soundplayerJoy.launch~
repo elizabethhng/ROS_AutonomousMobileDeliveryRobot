@@ -1,0 +1,8 @@
+<launch>
+  
+  <include file="$(find ps3joy)/launch/ps3.launch"/>
+  <include file="$(find roboclaw_base)/launch/roboclaw_base.launch" />
+  <node name="soundplay_node" pkg="sound_play" type="soundplay_node.py"/>
+  <node name="ps3test" pkg="roboclaw_base" type="ps3test.py"/>
+  <include file="$(find teleop_twist_joy)/launch/teleop.launch" />
+</launch>

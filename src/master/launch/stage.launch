@@ -1,0 +1,24 @@
+<launch>
+ <param name ="/use_sim_time" value="true"/>
+  <!-- run p2os driver -->
+		<node name="stage" pkg="stage_ros" type="stageros" args="$(find stage)/worlds/simple.world">
+    <remap from="/robot_0/cmd_vel" to="/cmd_vel"/>
+  </node>
+
+	<!-- run p2os controller -->
+	<include file="$(find teleop_twist_joy)/launch/teleop.launch" />
+	
+	<arg name="map_file" default="$(find gmapping)/test_map1.yaml"/>
+	<node pkg="map_server" type="map_server" name="map_server" args="$(arg map_file)">
+	</node>
+	
+	<include file="$(find master)/launch/amcl.launch" />
+	
+		<!-- run rviz -->
+	<node pkg="rviz" type="rviz" name="rviz"/>
+	
+	<include file="$(find master)/launch/move_base_nav.launch" />
+	
+	
+</launch>
+

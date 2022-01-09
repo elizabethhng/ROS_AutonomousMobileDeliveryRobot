@@ -1,0 +1,19 @@
+<launch>
+	<!-- run p2os driver -->
+	<include file="$(find p2os_launch)/launch/p2os_driver.launch" />
+	
+	<!-- run p2os controller -->
+	<include file="$(find p2os_launch)/launch/teleop_joy.launch" />
+	
+	<!-- run EKF -->
+	<include file="$(find robot_localization)/launch/ekf_template.launch" />
+
+	<!-- run IMU device -->
+	<include file="$(find vmu931_imu)/launch/vmu931_imu.launch" />
+
+	<node pkg="odom2path" type="odom2path.py" name="path_node" />
+
+	<node pkg="odom2path" type="ekf2path.py" name="path2_node" />
+	
+	
+</launch>

@@ -1,0 +1,13 @@
+<launch>
+    <include file="$(find roboclaw_base)/description/launch/load_urdf.launch" />
+    <include file="$(find p2os_launch)/launch/pioneer_localization.launch" />
+    <node name="Linetracker" pkg="rosserial_arduino" type="linetrack.py"/>
+    <node name="State_machine" pkg="gotogoal" type="fsmEEEoffice"/>
+    <node name="smach_viewer" pkg="smach_viewer" type="smach_viewer.py"/>
+    <node name="soundplay_node" pkg="sound_play" type="soundplay_node.py"/>
+    <node name="fsmSound" pkg="roboclaw_base" type="fsmSound.py"/>
+    
+
+
+	
+</launch>

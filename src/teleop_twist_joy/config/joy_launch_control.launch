@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <!-- 
+	Note: 
+	 - Button mapping specific for Logitech and xbox joysticks 
+	 - You may need to remap by changing params below
+	-->
+	<arg name="collect_button_num" value="5" />
+	<arg name="collect_button_sym" value="LB" />
+	<arg name="send_button_num" value="5" />
+  <arg name="send_button_sym" value="RB" />
+	<arg name="calibrate_button_num" value="7" />
+  <arg name="calibrate_button_sym" value="START" />
+	<arg name="abort_button_num" value="1" />
+  <arg name="abort_button_sym" value="B" />
+	<arg name="continue_button_num" value="3" />
+  <arg name="continue_button_sym" value="Y" />
+
+	<arg name="simulation_enabled" value="false" />
+
+  <!-- Run collect_gps_waypoints node -->
+  	<node name="pyserial" pkg="pyserial" type="joy_launch_control.py" output="screen"/>
+			<param name="/teleop_twist_joy/collect_button_num" value="$(arg collect_button_num)" type="int" />
+			<param name="/teleop_twist_joy/collect_button_sym" value="$(arg collect_button_sym)" type="string" />
+			<param name="/teleop_twist_joy/send_button_num" value="$(arg send_button_num)" type="int" />
+			<param name="/teleop_twist_joy/send_button_sym" value="$(arg send_button_sym)" type="string" />
+			<param name="/teleop_twist_joy/calibrate_button_num" value="$(arg calibrate_button_num)" type="int" />
+			<param name="/teleop_twist_joy/calibrate_button_sym" value="$(arg calibrate_button_sym)" type="string" />
+			<param name="/teleop_twist_joy/abort_button_num" value="$(arg abort_button_num)" type="int" />
+			<param name="/teleop_twist_joy/abort_button_sym" value="$(arg abort_button_sym)" type="string" />
+			<param name="/teleop_twist_joy/continue_button_num" value="$(arg continue_button_num)" type="int" />
+			<param name="/teleop_twist_joy/continue_button_sym" value="$(arg continue_button_sym)" type="string" />
+			<param name="/teleop_twist_joy/sim_enabled" value="$(arg simulation_enabled)" type="bool" />
+
+</launch>
+			

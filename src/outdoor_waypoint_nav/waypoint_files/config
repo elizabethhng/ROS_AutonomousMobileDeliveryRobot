@@ -1,0 +1,11 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	url = https://github.com/ros-perception/pointcloud_to_laserscan.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "lunar-devel"]
+	remote = origin
+	merge = refs/heads/lunar-devel
